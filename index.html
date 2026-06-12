@@ -647,7 +647,14 @@
     document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('selected'));
     el.classList.add('selected');
   }
-
+const priestEmails = {
+  "Aba Fikre Mariam": "beakalcha92@gmail.com",
+  "Kesis Powlos": "beakalcha92@gmail.com",
+  "Kesis Hibret": "beakalcha92@gmail.com",
+  "Kesis Girma": "beakalcha92@gmail.com",
+  "Kesis Abay": "beakalcha92@gmail.com",
+  "Kesis Anteneh": "beakalcha92@gmail.com"
+};
   // ── Submit ──
   window.submitBooking = async function() {
     const name  = document.getElementById('fieldName').value.trim();
@@ -678,16 +685,18 @@
     btn.disabled = true;
 
     const { error } = await supabase.from('bookings').insert({
-      church,
-      priest,
-      parishioner_name: name,
-      phone,
-      email,
-      appointment_date: date,
-      time_slot: chip.textContent,
-      appointment_type: type ? type.textContent : 'Confession',
-      notes,
-      status: 'pending'
+  church,
+  priest,
+  priest_email: priestEmails[priest],
+  parishioner_name: name,
+  phone,
+  email,
+  appointment_date: date,
+  time_slot: chip.textContent,
+  appointment_type: type ? type.textContent : 'Confession',
+  notes,
+  status: 'pending'
+});
     });
 
     btn.textContent = 'Confirm Booking';
